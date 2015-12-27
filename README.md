@@ -21,7 +21,7 @@ OWM.init('my-api-key', 'imperial');
 
 Each querying function requires some parameters and a callback function to be executed on a successful API call.
 
-Querying current conditions:
+#### Querying current conditions:
 ```javascript
 // currentByZip(zipcode, country, callback function)
 OWM.currentByZip('12345', 'us', function(result){
@@ -51,7 +51,7 @@ Response format:
 }
 ```
 
-Querying forecast data:
+#### Querying forecast data:
 ```javascript
 // forecastByZip(zipcode, country, callback function)
 OWM.currentByZip('12345', 'us', function(result){
