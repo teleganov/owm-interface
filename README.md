@@ -5,7 +5,7 @@ manually perform API calls and parsing
 
 Installation
 ------------
-* owm-interface.js requires jQuery.
+* owm-interface.js requires jQuery (mostly for calling the OWM API).
 * Include owm-interface.js in your html file.
 ```html
 <script src="owm-interface.js"></script>
