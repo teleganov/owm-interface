@@ -34,7 +34,7 @@ var OWM = {
       var req;
       if(type === 'current'){ req = 'weather'; }
       else if(type === 'forecast'){ req = 'forecast'; }
-      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryById"'); return; }
+      else { console.error('OWM: Invalid query type "'+ type + '" provided in "queryById"'); return; }
       var queryURL = this.url + req + '?id=' + id;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
@@ -51,7 +51,7 @@ var OWM = {
       var req;
       if(type === 'current'){ req = 'weather'; }
       else if(type === 'forecast'){ req = 'forecast'; }
-      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryByZip"'); return; }
+      else { console.error('OWM: Invalid query type "'+ type + '" provided in "queryByZip"'); return; }
       var queryURL = this.url + req + '?zip=' + zipcode + ',' + country;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
@@ -68,7 +68,7 @@ var OWM = {
       var req;
       if(type === 'current'){ req = 'weather'; }
       else if(type === 'forecast'){ req = 'forecast'; }
-      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryByCoord"'); return; }
+      else { console.error('OWM: Invalid query type "'+ type + '" provided in "queryByCoord"'); return; }
       var queryURL = this.url + req + '?lat=' + latitude + '&lon=' + longitude;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
