@@ -31,7 +31,11 @@ var OWM = {
     if(!type || !id || !country) console.error('OWM: Missing parameters when calling "queryById"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + type + '?id=' + id;
+      var req;
+      if(type === 'current'){ req = 'weather'; }
+      else if(type === 'forecast'){ req = 'forecast'; }
+      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryById"'); return; }
+      var queryURL = this.url + req + '?id=' + id;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
@@ -44,7 +48,11 @@ var OWM = {
     if(!type || !zipcode || !country) console.error('OWM: Missing parameters when calling "queryByZip"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + type + '?zip=' + zipcode + ',' + country;
+      var req;
+      if(type === 'current'){ req = 'weather'; }
+      else if(type === 'forecast'){ req = 'forecast'; }
+      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryByZip"'); return; }
+      var queryURL = this.url + req + '?zip=' + zipcode + ',' + country;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
@@ -57,7 +65,11 @@ var OWM = {
     if(!type || !longitude || !latitude) console.error('OWM: Missing parameters when calling "queryByCoord"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + type + '?lat=' + latitude + '&lon=' + longitude;
+      var req;
+      if(type === 'current'){ req = 'weather'; }
+      else if(type === 'forecast'){ req = 'forecast'; }
+      else { console.error('OWM: Invalid query type "'+ type + '"provided in "queryByCoord"'); return; }
+      var queryURL = this.url + req + '?lat=' + latitude + '&lon=' + longitude;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
