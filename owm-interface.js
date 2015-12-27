@@ -53,6 +53,19 @@ var OWM = {
       });
     }
   },
+  forecastByZip: function(zipcode, country, callback){
+    if(!zipcode || !country) console.error('OWM: Missing parameters when calling "forecastByZip"');
+    this.checkValidity();
+    if(this.ready){
+      var queryURL = this.url + 'forecast?zip=' + zipcode + ',' + country;
+      queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
+      var that = this;
+      $.get(queryURL, function(response){
+        console.log(response);
+        callback(that.filterResponse(response));
+      });
+    }
+  },
   request: function(type, params, callback){
     if(!type) console.error('OWM: Missing request type when calling "request"');
     if(!params) console.error('OWM: Missing request parameters list when calling "request"');
@@ -64,10 +77,9 @@ var OWM = {
         this.updateQuery(queryString, key, params[key]);
       });
       queryURL += queryString;
-      var that = this;
       $.get(queryURL, function(response){
         console.log(response);
-        callback(this.filterResponse(response));
+        callback(response);
       });
     }
   },
