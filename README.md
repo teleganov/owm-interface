@@ -23,12 +23,16 @@ Each querying function requires some parameters and a callback function to be ex
 
 #### Querying current conditions:
 ```javascript
-// currentByZip(zipcode, country, callback function)
-OWM.currentByZip('12345', 'us', function(result){
+// queryByZip('current', zipcode, country, callback function)
+OWM.queryByZip('current', '12345', 'us', function(result){
     console.log('Temperature: ' + result.temperature);
 });
-// currentByCoord(latitude, longitude, callback function)
-OWM.currentByCoord('50', '50', function(result){
+// queryByCoord('current', latitude, longitude, callback function)
+OWM.queryByCoord('current', '50', '50', function(result){
+    console.log('Temperature: ' + result.temperature);
+});
+// queryById('current', OWM city ID, callback function)
+OWM.queryById('current', '123456', function(result){
     console.log('Temperature: ' + result.temperature);
 });
 ```
@@ -53,12 +57,16 @@ Response format:
 
 #### Querying forecast data:
 ```javascript
-// forecastByZip(zipcode, country, callback function)
-OWM.currentByZip('12345', 'us', function(result){
+// queryByZip('forecast', zipcode, country, callback function)
+OWM.queryByZip('forecast', '12345', 'us', function(result){
     console.log('Temperature: ' + result.temperature);
 });
-// forecastByCoord(latitude, longitude, callback function)
-OWM.currentByCoord('50', '50', function(result){
+// queryByCoord('forecast', latitude, longitude, callback function)
+OWM.queryByCoord('forecast', '50', '50', function(result){
+    console.log('Temperature: ' + result.temperature);
+});
+// queryById('forecast', OWM city ID, callback function)
+OWM.queryById('forecast', '123456', function(result){
     console.log('Temperature: ' + result.temperature);
 });
 ```
@@ -90,14 +98,17 @@ Response format:
 }
 ```
 
-You can also perform your own custom queries on the API by using the 'request' function.  
+You can also perform your own custom queries on the API by using the 'query' function.  
 You must provide the correct request type and parameters as required in the OWM API.
 (i.e. http://api.openweathermap.org/data/2.5/weather?zip=94040,us has type='weather', zip='94040,us')   
 This function does not format the response in any way so you get exactly what OWM returns from the API call.
 ```javascript
-// request(request type, parameters, callback function)
-OWM.request('weather', {zip: '12345,us'}, function(result){
-    console.log('Temperature: ' + result.temperature);
+// query(request type, parameters, callback function)
+OWM.query('weather', {zip: '12345,us'}, function(result){
+    // work with OWM response
+});
+OWM.query('forecast', {id: '123456'}, function(result){
+    // work with OWM response
 });
 ```
 

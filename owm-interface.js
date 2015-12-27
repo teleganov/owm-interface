@@ -27,48 +27,48 @@ var OWM = {
   filterResponse: function(response) {
     return response;
   },
-  currentByZip: function(zipcode, country, callback){
-    if(!zipcode || !country) console.error('OWM: Missing parameters when calling "currentByZip"');
+  queryById: function(type, id, country, callback){
+    if(!type || !id || !country) console.error('OWM: Missing parameters when calling "queryById"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + 'weather?zip=' + zipcode + ',' + country;
+      var queryURL = this.url + type + '?id=' + id;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
         console.log(response);
-        callback(that.filterResponse(response));
+        callback(that.filterResponse(response, type));
       });
     }
   },
-  currentByCoord: function(longitude, latitude, callback){
-    if(!longitude || !latitude) console.error('OWM: Missing parameters when calling "currentByCoord"');
+  queryByZip: function(type, zipcode, country, callback){
+    if(!type || !zipcode || !country) console.error('OWM: Missing parameters when calling "queryByZip"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + 'weather?lat=' + latitude + '&lon=' + longitude;
+      var queryURL = this.url + type + '?zip=' + zipcode + ',' + country;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
         console.log(response);
-        callback(this.filterResponse(response));
+        callback(that.filterResponse(response, type));
       });
     }
   },
-  forecastByZip: function(zipcode, country, callback){
-    if(!zipcode || !country) console.error('OWM: Missing parameters when calling "forecastByZip"');
+  queryByCoord: function(type, latitude, longitude, callback){
+    if(!type || !longitude || !latitude) console.error('OWM: Missing parameters when calling "queryByCoord"');
     this.checkValidity();
     if(this.ready){
-      var queryURL = this.url + 'forecast?zip=' + zipcode + ',' + country;
+      var queryURL = this.url + type + '?lat=' + latitude + '&lon=' + longitude;
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
         console.log(response);
-        callback(that.filterResponse(response));
+        callback(this.filterResponse(response, type));
       });
     }
   },
-  request: function(type, params, callback){
-    if(!type) console.error('OWM: Missing request type when calling "request"');
-    if(!params) console.error('OWM: Missing request parameters list when calling "request"');
+  query: function(type, params, callback){
+    if(!type) console.error('OWM: Missing request type when calling "query"');
+    if(!params) console.error('OWM: Missing request parameters list when calling "query"');
     this.checkValidity();
     if(this.ready){
       var queryString = '';
