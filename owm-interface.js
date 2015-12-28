@@ -27,7 +27,7 @@ var OWM = {
   filterResponse: function(response, type) {
     var filtered;
     var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-    if(type === 'forecast'){
+    if(type === 'current'){
       var windDirectionText;
       var wind = response['wind']['deg'] + 22.5;
       if(wind >= 360) wind -= 360;
@@ -42,36 +42,36 @@ var OWM = {
         windSpeed: response['wind']['speed'],
         windDirection: response['wind']['deg'],
         windDirectionText: windDirectionText,
-        cloudiness: response['clouds']['all'],
-        rainVolume: response['rain']['3h'],
-        snowVolume: response['snow']['3h'],
         time: response['dt']
       }
+      if(response['clouds']) filtered['cloudiness'] = response['clouds']['all'];
+      if(response['rain'])   filtered['rainVolume'] = response['rain']['3h'];
+      if(response['snow'])   filtered['snowVolume'] = response['snow']['3h'];
     }
-    if(type === 'current'){
+    if(type === 'forecast'){
       filtered = {
         name: response['city']['name'],
         data: []
       };
       response['list'].forEach(function(period){
         var windDirectionText, entry;
-        var wind = response['wind']['deg'] + 22.5;
+        var wind = period['wind']['deg'] + 22.5;
         if(wind >= 360) wind -= 360;
         windDirectionText = directions[Math.floor(wind / 45)];
         entry = {
-          time: response['dt'],
-          conditions: response['weather']['description'],
-          readableConditions: response['weather']['main'],
-          temperature: response['main']['temp'],
-          pressure: response['main']['pressure'],
-          humidity: response['main']['humidity'],
-          windSpeed: response['wind']['speed'],
-          windDirection: response['wind']['deg'],
-          windDirectionText: windDirectionText,
-          cloudiness: response['clouds']['all'],
-          rainVolume: response['rain']['3h'],
-          snowVolume: response['snow']['3h']
+          time: period['dt'],
+          conditions: period['weather']['description'],
+          readableConditions: period['weather']['main'],
+          temperature: period['main']['temp'],
+          pressure: period['main']['pressure'],
+          humidity: period['main']['humidity'],
+          windSpeed: period['wind']['speed'],
+          windDirection: period['wind']['deg'],
+          windDirectionText: windDirectionText
         }
+        if(period['clouds']) entry['cloudiness'] = period['clouds']['all'];
+        if(period['rain'])   entry['rainVolume'] = period['rain']['3h'];
+        if(period['snow'])   entry['snowVolume'] = period['snow']['3h'];
         filtered['data'].push(entry);
       });
     }
