@@ -24,8 +24,58 @@ var OWM = {
     this.apiKey = apiKey;
     if(units) this.units = units;
   },
-  filterResponse: function(response) {
-    return response;
+  filterResponse: function(response, type) {
+    var filtered;
+    var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    if(type === 'forecast'){
+      var windDirectionText;
+      var wind = response['wind']['deg'] + 22.5;
+      if(wind >= 360) wind -= 360;
+      windDirectionText = directions[Math.floor(wind / 45)];
+      filtered = {
+        name: response['name'],
+        conditions: response['weather']['description'],
+        readableConditions: response['weather']['main'],
+        temperature: response['main']['temp'],
+        pressure: response['main']['pressure'],
+        humidity: response['main']['humidity'],
+        windSpeed: response['wind']['speed'],
+        windDirection: response['wind']['deg'],
+        windDirectionText: windDirectionText,
+        cloudiness: response['clouds']['all'],
+        rainVolume: response['rain']['3h'],
+        snowVolume: response['snow']['3h'],
+        time: response['dt']
+      }
+    }
+    if(type === 'current'){
+      filtered = {
+        name: response['city']['name'],
+        data: []
+      };
+      response['list'].forEach(function(period){
+        var windDirectionText, entry;
+        var wind = response['wind']['deg'] + 22.5;
+        if(wind >= 360) wind -= 360;
+        windDirectionText = directions[Math.floor(wind / 45)];
+        entry = {
+          time: response['dt'],
+          conditions: response['weather']['description'],
+          readableConditions: response['weather']['main'],
+          temperature: response['main']['temp'],
+          pressure: response['main']['pressure'],
+          humidity: response['main']['humidity'],
+          windSpeed: response['wind']['speed'],
+          windDirection: response['wind']['deg'],
+          windDirectionText: windDirectionText,
+          cloudiness: response['clouds']['all'],
+          rainVolume: response['rain']['3h'],
+          snowVolume: response['snow']['3h']
+        }
+        filtered['data'].push(entry);
+      });
+    }
+    return filtered;
   },
   queryById: function(type, id, country, callback){
     if(!type || !id || !country) console.error('OWM: Missing parameters when calling "queryById"');

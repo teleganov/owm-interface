@@ -41,7 +41,6 @@ Response format:
 { name: 'City Name',
   conditions: 'snow' (lowercase, parseable conditions),
   readableConditions: 'Snow' (Capitalized, human-readable conditions),
-  base: 'Weather base name',
   temperature: 40 (current temperature in requested units),
   pressure: 1000 (atmospheric pressure in hPa),
   humidity: 80 (percentage),
