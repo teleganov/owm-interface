@@ -34,8 +34,10 @@ var OWM = {
       windDirectionText = directions[Math.floor(wind / 45)];
       filtered = {
         name: response['name'],
-        conditions: response['weather']['description'],
-        readableConditions: response['weather']['main'],
+        conditions: response['weather'][0]['description'],
+        readableConditions: response['weather'][0]['main'],
+        conditionId: response['weather'][0]['id'],
+        conditionIcon: response['weather'][0]['icon'],
         temperature: response['main']['temp'],
         pressure: response['main']['pressure'],
         humidity: response['main']['humidity'],
@@ -62,6 +64,8 @@ var OWM = {
           time: period['dt'],
           conditions: period['weather']['description'],
           readableConditions: period['weather']['main'],
+          conditionId: response['weather'][0]['id'],
+          conditionIcon: response['weather'][0]['icon'],
           temperature: period['main']['temp'],
           pressure: period['main']['pressure'],
           humidity: period['main']['humidity'],
@@ -89,7 +93,6 @@ var OWM = {
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
-        console.log(response);
         callback(that.filterResponse(response, type));
       });
     }
@@ -106,7 +109,6 @@ var OWM = {
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
-        console.log(response);
         callback(that.filterResponse(response, type));
       });
     }
@@ -123,7 +125,6 @@ var OWM = {
       queryURL += '&units=' + this.units + '&APPID=' + this.apiKey;
       var that = this;
       $.get(queryURL, function(response){
-        console.log(response);
         callback(this.filterResponse(response, type));
       });
     }
@@ -140,7 +141,6 @@ var OWM = {
       });
       queryURL += queryString;
       $.get(queryURL, function(response){
-        console.log(response);
         callback(response);
       });
     }
