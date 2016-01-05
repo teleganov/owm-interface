@@ -52,7 +52,7 @@ Response format:
   cloudiness: 25 (percentage),
   rainVolume: 3 (rain volume in last 3 hours),
   snowVolume: 0 (snow volume in last 3 hours),
-  time: 1451190000 (Unix timestamp of data)
+  time: 1451190000 (Unix timestamp of data, in seconds)
 }
 ```
 
@@ -76,7 +76,7 @@ Response format:
 { name: 'City Name',
   data: [
     {
-      time: 1451196000 (Unix timestamp of this 3-hour period),
+      time: 1451196000 (Unix timestamp of this 3-hour period, in seconds),
       conditions: 'light rain' (lowercase, parseable conditions),
       readableConditions: 'Rain' (Capitalized, human-readable conditions),
       conditionId: 800 (condition identifier, learn more on OWM API website),
