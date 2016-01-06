@@ -52,6 +52,8 @@ Response format:
   cloudiness: 25 (percentage),
   rainVolume: 3 (rain volume in last 3 hours),
   snowVolume: 0 (snow volume in last 3 hours),
+  sunriseTime: 1451190000 (Unix timestamp for sunrise, in seconds)
+  sunsetTime: 1451190000 (Unix timestamp for sunset, in seconds)
   time: 1451190000 (Unix timestamp of data, in seconds)
 }
 ```
